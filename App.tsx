@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Animated from 'react-native-reanimated';
+import { StyleSheet, View } from 'react-native';
+import { ValuesAndIdentities } from '@screens';
 
 export default function App(): React.ReactElement {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <ValuesAndIdentities />
       <StatusBar style='auto' />
     </View>
   );
