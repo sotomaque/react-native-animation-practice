@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, Card } from '@components';
-
-const cards = [
-  {
-    id: 1,
-  },
-];
+import { Button, Card, cards } from '@components';
 
 const ValuesAndIdentities = (): React.ReactElement => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   return (
     <View style={styles.container}>

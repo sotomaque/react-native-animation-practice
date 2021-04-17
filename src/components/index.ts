@@ -1,4 +1,5 @@
 import Button from './Button';
-import Card from './Card';
+import { Card, cards } from './Card';
+import Text from './Text';
 
-export { Button, Card };
+export { Button, Card, cards, Text };
