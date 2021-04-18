@@ -1,23 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useSpring } from 'react-native-redash';
 
 import { AnimatedCard, Button, cards, StyleGuide } from '@components';
-import Animated, {
-  useDerivedValue,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
-
-interface UseAnimationProps {
-  state: boolean | number;
-  config?: Animated.WithTimingConfig;
-}
 
 const Transitions = (): React.ReactElement => {
-  const toggled = useSharedValue(false);
-  const transition = useDerivedValue(() => {
-    return withSpring(toggled.value);
-  });
+  const [toggled, setToggle] = useState(false);
+  const transition = useSpring(toggled);
   return (
     <View style={styles.container}>
       {cards.slice(0, 3).map((card, index) => (
@@ -26,7 +15,7 @@ const Transitions = (): React.ReactElement => {
       <Button
         label={toggled ? 'Reset' : 'Start'}
         primary
-        onPress={() => (toggled.value = !toggled.value)}
+        onPress={() => setToggle(prev => !prev)}
       />
     </View>
   );
