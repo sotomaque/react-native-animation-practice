@@ -1,5 +1,6 @@
 import Home from './Home';
-import Worklets from './Worklets';
 import PanGesture from './PanGesture';
+import Transitions from './Transitions';
+import Worklets from './Worklets';
 
-export { Home, Worklets, PanGesture };
+export { Home, PanGesture, Transitions, Worklets };

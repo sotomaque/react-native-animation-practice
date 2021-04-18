@@ -16,6 +16,10 @@ export const examples = [
     screen: 'PanGesture',
     title: '💳 PanGesture',
   },
+  {
+    screen: 'Transitions',
+    title: '🔁 Transitions',
+  },
 ] as const;
 
 const styles = StyleSheet.create({

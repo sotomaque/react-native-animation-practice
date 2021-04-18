@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes } from './Routes';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home, PanGesture, Worklets } from '@screens';
+import { Home, PanGesture, Worklets, Transitions } from '@screens';
 
 const Stack = createStackNavigator<Routes>();
 
@@ -27,6 +27,13 @@ const RootNavigator = (): React.ReactElement => {
         component={Worklets}
         options={{
           title: 'Worklets',
+        }}
+      />
+      <Stack.Screen
+        name='Transitions'
+        component={Transitions}
+        options={{
+          title: 'Transitions',
         }}
       />
     </Stack.Navigator>
