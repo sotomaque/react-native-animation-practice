@@ -1,6 +1,13 @@
 import React from 'react';
-import { PanGesture } from '@screens';
+import { RootNavigator } from '@navigation';
+import { NavigationContainer } from '@react-navigation/native';
 
-export default function App(): React.ReactElement {
-  return <PanGesture />;
-}
+const App = (): React.ReactElement => {
+  return (
+    <NavigationContainer>
+      <RootNavigator />
+    </NavigationContainer>
+  );
+};
+
+export default App;
