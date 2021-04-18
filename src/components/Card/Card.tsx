@@ -1,71 +1,38 @@
-import * as React from 'react';
-import { Dimensions, Image, ImageStyle, StyleSheet } from 'react-native';
-import Animated from 'react-native-reanimated';
-
-import StyleGuide from '../StyleGuide';
-
-type CardId = number;
-interface Card {
-  id: CardId;
-  source: number;
-}
-
-export const cards: Card[] = [
-  {
-    id: 0,
-    source: require('../../assets/examples/card1.png'),
-  },
-  {
-    id: 1,
-    source: require('../../assets/examples/card2.png'),
-  },
-  {
-    id: 2,
-    source: require('../../assets/examples/card3.png'),
-  },
-];
+import React from 'react';
+import { Dimensions, Image, StyleSheet } from 'react-native';
 
 const { width } = Dimensions.get('window');
-const CARD_ASPECT_RATIO = 1324 / 863;
-export const CARD_WIDTH = width - StyleGuide.spacing * 8;
-export const CARD_HEIGHT = CARD_WIDTH / CARD_ASPECT_RATIO;
+const ratio = 228 / 362;
+export const CARD_WIDTH = width * 0.8;
+export const CARD_HEIGHT = CARD_WIDTH * ratio;
+export const assets = [
+  require('../../assets/examples/card1.png'),
+  require('../../assets/examples/card2.png'),
+  require('../../assets/examples/card3.png'),
+];
 
 const styles = StyleSheet.create({
-  container: {
+  card: {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
-    borderRadius: 18,
-  },
-  flexibleContainer: {
-    flex: 1,
-    maxWidth: '100%',
-    aspectRatio: CARD_ASPECT_RATIO,
-    margin: StyleGuide.spacing,
-    borderRadius: 18,
-    resizeMode: 'contain',
+    borderRadius: 16,
   },
 });
 
-export interface CardProps {
-  card: Card;
+export enum Cards {
+  Card1 = 0,
+  Card2 = 1,
+  Card3 = 2,
 }
 
-interface FlexibleCardProps extends CardProps {
-  style?: Animated.AnimateStyle<ImageStyle>;
-}
+export const cards = [Cards.Card1, Cards.Card2, Cards.Card3];
 
-export const FlexibleCard = ({
-  card,
-  style,
-}: FlexibleCardProps): React.ReactElement => (
-  <Animated.Image
-    style={[styles.flexibleContainer, style]}
-    source={card.source}
-  />
-);
+interface CardProps {
+  card: Cards;
+}
 
 const Card = ({ card }: CardProps): React.ReactElement => {
-  return <Image style={styles.container} source={card.source} />;
+  return <Image style={styles.card} source={assets[card]} />;
 };
 
 export default Card;

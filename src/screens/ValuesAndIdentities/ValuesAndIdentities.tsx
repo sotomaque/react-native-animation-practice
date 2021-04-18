@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, Card, cards } from '@components';
+import { Button, Text } from '@components';
 
 const ValuesAndIdentities = (): React.ReactElement => {
-  const [show, setShow] = useState(true);
-
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <View style={{ opacity: show ? 1 : 0 }}>
-          <Card card={cards[0]} />
-        </View>
+        <Text>Hi</Text>
       </View>
-
       <Button
-        label={show ? 'Hide' : 'Show'}
+        label='Toggle'
         primary
-        onPress={() => setShow(prev => !prev)}
+        onPress={() => {
+          console.log('hi');
+        }}
       />
     </View>
   );
