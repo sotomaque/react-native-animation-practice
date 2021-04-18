@@ -1,3 +1,3 @@
-import Card, { cards } from './Card';
+import Card, { Cards, cards, CARD_WIDTH, CARD_HEIGHT } from './Card';
 
-export { Card, cards };
+export { Card, Cards, cards, CARD_WIDTH, CARD_HEIGHT };

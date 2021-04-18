@@ -1,12 +1,17 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, cards } from '@components';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import { Card, Cards, CARD_HEIGHT, CARD_WIDTH } from '@components';
+import {
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+} from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
+  withDecay,
 } from 'react-native-reanimated';
+import { clamp, withBouncing } from 'react-native-redash';
 
 interface GestureProps {
   width: number;
@@ -14,16 +19,42 @@ interface GestureProps {
 }
 
 const PanGesture = ({ width, height }: GestureProps): React.ReactElement => {
+  const boundX = width - CARD_WIDTH;
+  const boundY = height - CARD_HEIGHT;
+
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
 
-  const onGestureEvent = useAnimatedGestureHandler({
-    onStart: (event, ctx) => {
-      (ctx.offsetX = translateX.value), (ctx.offsetY = translateY.value);
+  const onGestureEvent = useAnimatedGestureHandler<
+    PanGestureHandlerGestureEvent,
+    {
+      offsetX: number;
+      offsetY: number;
+    }
+  >({
+    onStart: (_, ctx) => {
+      ctx.offsetX = translateX.value;
+      ctx.offsetY = translateY.value;
     },
     onActive: (event, ctx) => {
-      translateX.value = ctx.offsetX + event.translationX;
-      translateY.value = ctx.offsetY + event.translationY;
+      translateX.value = clamp(ctx.offsetX + event.translationX, 0, boundX);
+      translateY.value = clamp(ctx.offsetY + event.translationY, 0, boundY);
+    },
+    onEnd: ({ velocityX, velocityY }) => {
+      translateX.value = withBouncing(
+        withDecay({
+          velocity: velocityX,
+        }),
+        0,
+        boundX
+      );
+      translateY.value = withBouncing(
+        withDecay({
+          velocity: velocityY,
+        }),
+        0,
+        boundY
+      );
     },
   });
 
@@ -40,7 +71,7 @@ const PanGesture = ({ width, height }: GestureProps): React.ReactElement => {
     <View style={styles.container}>
       <PanGestureHandler {...{ onGestureEvent }}>
         <Animated.View {...{ style }}>
-          <Card card={cards[0]} />
+          <Card card={Cards.Card1} />
         </Animated.View>
       </PanGestureHandler>
     </View>
